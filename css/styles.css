@@ -1,0 +1,17 @@
+body {
+    background-color: #339639;
+}
+
+#header {
+    text-decoration: underline;
+}
+
+.card-div {
+    padding: 10px;
+}
+
+.hit-btn {
+    height: 50px;
+    width: 60px;
+    text-align: center;
+}
