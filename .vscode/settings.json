@@ -1,0 +1,11 @@
+{
+  // Only look for tests under js/ — keeps the runner away from deck/ and css/.
+  "nodejs-testing.include": ["js"],
+  "nodejs-testing.exclude": ["**/node_modules/**"],
+  "nodejs-testing.extensions": [
+    {
+      "extensions": ["js", "mjs", "cjs"],
+      "parameters": []
+    }
+  ]
+}
