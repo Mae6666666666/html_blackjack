@@ -1,6 +1,6 @@
 import test from "node:test"
 import assert from "node:assert/strict"
-import { totalCalc } from "./game.js"
+import { totalCalc, isBust, isBlackjack, compareCards } from "./game.js"
 
 /*
 A card is written as suit letter + deck index, matching the image files in deck/.
@@ -76,3 +76,85 @@ test("totalCalc. A hand with no ace is allowed to go bust", () => {
 })
 
 
+//isbust() check over 21
+
+test("isBust. Check if over 21", () =>{
+    // should be 25
+    assert.equal(isBust(["d9", "h9", "s4"]), true)
+})
+
+test("isBust. Check if over 21", () =>{
+    // should be 20
+    assert.equal(isBust(["d9", "h9"]), false)
+})
+
+test("isBust. Check if over 21", () =>{
+    // should be 21
+    assert.equal(isBust(["d9", "h9", "s0"]), false)
+})
+
+test("isBust. Check if over 21", () =>{
+    // should be 22
+    assert.equal(isBust(["d9", "h9", "s1"]), true)
+})
+
+test("isBust. Check if over 21", () =>{
+    // should be 5
+    assert.equal(isBust(["d2", "h1"]), false)
+})
+
+
+
+// isBlackjack() check if cards equal Blackjack
+
+test("isBlackjack. Check if == 21", () => {
+    // should be ten ace
+    assert.equal(isBlackjack(["d9", "h0"]), true)
+})
+
+test("isBlackjack. Check if == 21", () => {
+    // should be ace ten
+    assert.equal(isBlackjack(["h0", "h9"]), true)
+})
+
+test("isBlackjack. Check if == 21", () => {
+    // should be jack ace
+    assert.equal(isBlackjack(["h0", "c10"]), true)
+})
+
+test("isBlackjack. Check if == 21", () => {
+    // should be queen ace
+    assert.equal(isBlackjack(["h0", "s11"]), true)
+})
+
+test("isBlackjack. Check if == 21", () => {
+    // should be king ace 
+    assert.equal(isBlackjack(["h0", "s12"]), true)
+})
+
+test("isBlackjack. Check if == 21", () => {
+    // should be 2, 9, and 10 (not Blackjack)
+    assert.equal(isBlackjack(["h1", "s8", "s9"]), false)
+})
+
+test("isBlackjack. Check if == 21", () => {
+    // should be 14, not Blackjack
+    assert.equal(isBlackjack(["h5", "s7"]), false)
+})
+
+// compareCards(), compares the dealer's and player's hand
+
+test("compareCards. Check which hand is closest to 21", () => {
+    // Dealer is first argument, should be dealer
+    assert.equal(compareCards(["h5", "s7"], ["h2", "d2"]), "Dealer")
+})
+
+test("compareCards. Check which hand is closest to 21", () => {
+    // Dealer is first argument, should be draw
+    assert.equal(compareCards(["h5", "s7"], ["c5", "d7"]), "Draw")
+})
+
+test("compareCards. Check which hand is closest to 21", () => {
+    // Dealer is first argument, should be Player
+    assert.equal(compareCards(["h5", "s7"], ["h0", "d9"]), "Player")
+})
