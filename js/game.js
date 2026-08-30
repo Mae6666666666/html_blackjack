@@ -117,3 +117,14 @@ export function compareCards(dealerHand, playerHand){
         return "Player"
     }
 }
+
+export function buildDeck(){
+    let deck = []
+    let suits = ["h", "d", "s", "c"]
+    for(let i = 0; i < 13; i ++){
+        suits.forEach((suit) => {
+            deck.push(suit + i)
+        });   
+    }
+    return deck
+}

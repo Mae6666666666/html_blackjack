@@ -1,6 +1,6 @@
 import test from "node:test"
 import assert from "node:assert/strict"
-import { totalCalc, isBust, isBlackjack, compareCards } from "./game.js"
+import { totalCalc, isBust, isBlackjack, compareCards, buildDeck } from "./game.js"
 
 /*
 A card is written as suit letter + deck index, matching the image files in deck/.
@@ -157,4 +157,28 @@ test("compareCards. Check which hand is closest to 21", () => {
 test("compareCards. Check which hand is closest to 21", () => {
     // Dealer is first argument, should be Player
     assert.equal(compareCards(["h5", "s7"], ["h0", "d9"]), "Player")
+})
+
+
+// buildDeck() builds a full deck of cards, ready to be dealt from
+
+test("buildDeck. A new deck holds 52 cards", () => {
+    assert.equal(buildDeck().length, 52)
+})
+
+test("buildDeck. The deck contains the ace of diamonds", () => {
+    assert.ok(buildDeck().includes("d0"))
+})
+
+test("buildDeck. The deck holds all 13 hearts", () => {
+    let hearts = buildDeck().filter(card => card[0] === "h")
+    assert.equal(hearts.length, 13)
+})
+
+test("buildDeck. The deck holds 13 of each suit", () => {
+    let deck = buildDeck()
+    assert.equal(deck.filter(card => card[0] === "d").length, 13)
+    assert.equal(deck.filter(card => card[0] === "s").length, 13)
+    assert.equal(deck.filter(card => card[0] === "h").length, 13)
+    assert.equal(deck.filter(card => card[0] === "c").length, 13)
 })
